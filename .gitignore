@@ -1,0 +1,9 @@
+# Slide build outputs — views, not sources.
+# The source is docs/slides/*.md. Regenerate with:
+#   npx @marp-team/marp-cli@latest docs/slides/specify-overview.md --pdf
+docs/slides/*.pdf
+docs/slides/*.pptx
+docs/slides/*.html
+
+# Office lock files (created while a deck is open)
+~$*
