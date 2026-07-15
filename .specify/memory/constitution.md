@@ -1,6 +1,40 @@
 <!--
 Sync Impact Report
 ==================
+Version change: 2.1.0 → 2.1.1
+Bump rationale: PATCH. No principle added, removed, or redefined; every
+  obligation is byte-for-byte unchanged in substance. This removes vendor and
+  provider attribution from Articles IV–VIII so the constitution complies with
+  its own rule: governance states rules that survive a stack or provider
+  migration, and technology is bound only in plan.md § Technical Context.
+  Naming one cloud vendor in five of eight articles violated that rule.
+
+Changed in 2.1.1:
+  - Articles IV–VIII: provider attribution removed from each article's opening.
+    The pillars themselves are unchanged — they are an industry-standard set,
+    common to every major cloud architecture framework, and belong to no vendor.
+  - Quality Gates + Governance: "the <vendor> pillars" → "the architectural
+    pillars (IV–VIII)". The balancing rule and its force are unchanged.
+  - Source citation removed. The principles stand on their own rationale, not
+    on a vendor's endorsement.
+
+Deliberately NOT changed:
+  - The five pillars remain Articles IV–VIII with identical rules.
+  - No gate, waiver rule, or loop ownership is affected.
+
+Templates: no change required — none reference the pillars by provider.
+Dependent views updated outside this file: CLAUDE.md, docs/slides/.
+
+--- History ---
+
+Version change: 2.0.0 → 2.1.0
+Bump rationale: MINOR. No principle added, removed, or redefined. Governance
+  materially expanded: a runtime guidance document is referenced and made
+  binding on gate placement (every Quality Gate MUST have exactly one owning
+  loop). Added Governance § Runtime development guidance →
+  .specify/memory/development-loops.md, plus CLAUDE.md as a session-loaded
+  pointer to both documents.
+
 Version change: 1.0.0 → 2.0.0
 Bump rationale: MAJOR. A principle was removed/redefined (IV. Performance
   Requirements is absorbed into the new Performance Efficiency pillar) and five
@@ -10,19 +44,15 @@ Bump rationale: MAJOR. A principle was removed/redefined (IV. Performance
 Principles:
   - I. Code Quality (NON-NEGOTIABLE) — unchanged
   - II. Testing Standards (NON-NEGOTIABLE) — unchanged
-  - III. User Experience Consistency — unchanged (no WAF pillar equivalent)
+  - III. User Experience Consistency — unchanged (no pillar equivalent)
   - IV. Performance Requirements — REMOVED (conflicts with / subsumed by
         VIII. Performance Efficiency)
-  - IV. Reliability — ADDED (Azure WAF pillar)
-  - V. Security — ADDED (Azure WAF pillar)
-  - VI. Cost Optimization — ADDED (Azure WAF pillar)
-  - VII. Operational Excellence — ADDED (Azure WAF pillar)
-  - VIII. Performance Efficiency — ADDED (Azure WAF pillar; replaces prior
+  - IV. Reliability — ADDED (architectural pillar)
+  - V. Security — ADDED (architectural pillar)
+  - VI. Cost Optimization — ADDED (architectural pillar)
+  - VII. Operational Excellence — ADDED (architectural pillar)
+  - VIII. Performance Efficiency — ADDED (architectural pillar; replaces prior
         Principle IV)
-
-Source: Azure Well-Architected Framework, five pillars of architectural
-  excellence —
-  https://learn.microsoft.com/en-us/azure/well-architected/what-is-well-architected-framework
 
 Added sections: five pillar articles (IV–VIII); Quality Gates expanded to
   cover reliability, security, cost, and operations.
@@ -106,7 +136,7 @@ by users as defects.
 ### IV. Reliability
 
 The workload MUST be resilient, available, and recoverable to the degree its
-business requirements demand (Azure Well-Architected pillar):
+business requirements demand:
 
 - Every feature MUST define its reliability targets (e.g., availability SLO,
   RTO, RPO) before implementation; targets MUST be proportionate to business
@@ -126,7 +156,7 @@ recovery keeps the product trustworthy under real-world conditions.
 ### V. Security
 
 Security MUST be built in, proportionate to the sensitivity of the data and
-operations involved (Azure Well-Architected pillar):
+operations involved:
 
 - Confidentiality, integrity, and availability of data MUST be protected. Secrets
   MUST NOT be committed to source; they MUST be stored in a managed secret store.
@@ -146,7 +176,7 @@ more effective than remediation after an incident.
 ### VI. Cost Optimization
 
 The workload MUST deliver a sufficient return on investment and MUST NOT waste
-resources (Azure Well-Architected pillar):
+resources:
 
 - Designs MUST consider cost as a first-class constraint; significant
   architectural choices MUST include an estimate of their ongoing cost impact.
@@ -164,7 +194,7 @@ and forces trade-offs to be explicit rather than accidental.
 ### VII. Operational Excellence
 
 The team MUST support responsible development and operations through disciplined,
-repeatable practices (Azure Well-Architected pillar):
+repeatable practices:
 
 - Deployments MUST be automated and repeatable; manual, undocumented production
   changes MUST NOT be the norm. Infrastructure and configuration MUST be defined
@@ -183,8 +213,8 @@ predictable and turn incidents into durable improvements.
 ### VIII. Performance Efficiency
 
 The workload MUST accomplish its purpose within acceptable timeframes and MUST
-scale efficiently with demand (Azure Well-Architected pillar; supersedes the
-former Performance Requirements article):
+scale efficiently with demand (supersedes the former Performance Requirements
+article):
 
 - Every feature with user-facing latency or throughput impact MUST declare
   measurable performance targets (e.g., p95 latency, throughput, resource
@@ -225,10 +255,10 @@ Each maps to the principle(s) it enforces:
 - **Performance check**: declared targets measured for performance-sensitive
   changes; no unresolved regression beyond threshold (Principle VIII).
 
-The Azure Well-Architected pillars (IV–VIII) require balancing decisions across
-pillars against business requirements. Where two pillars pull in opposite
-directions (for example, reliability versus cost), the trade-off MUST be made
-deliberately and recorded in the change's plan.
+The architectural pillars (IV–VIII) require balancing decisions across pillars
+against business requirements. Where two pillars pull in opposite directions
+(for example, reliability versus cost), the trade-off MUST be made deliberately
+and recorded in the change's plan.
 
 Any gate may be waived only with an explicit, recorded justification approved by
 the maintainers. Waivers MUST reference the specific principle and include a plan
@@ -240,9 +270,18 @@ This constitution supersedes other development practices where they conflict.
 It exists to guide technical decisions and implementation choices: when a design
 or implementation option is evaluated, the option that better upholds these
 principles MUST be preferred, and any deviation MUST be justified in writing
-against the principle it strains. For the Azure Well-Architected pillars, "better"
-is judged as the balanced outcome across pillars given business requirements, not
-maximizing any single pillar in isolation.
+against the principle it strains. For the architectural pillars (IV–VIII),
+"better" is judged as the balanced outcome across pillars given business
+requirements, not maximizing any single pillar in isolation.
+
+**Provider and technology neutrality**: This constitution states rules that
+survive a change of language, framework, cloud, or vendor. It MUST NOT name a
+specific product, service, or provider — that is a design decision belonging to
+`plan.md` § Technical Context (see Runtime development guidance below). A rule
+that cannot be stated without naming a vendor is a plan decision wearing a
+principle's clothes, and MUST be rejected here. The sole exception is a genuine
+project-wide mandate (for example, a data-residency obligation), which is
+governance rather than design.
 
 **Amendment procedure**: Amendments MUST be proposed via pull request that states
 the change, its rationale, and its impact on dependent templates and workflows.
@@ -262,4 +301,12 @@ this constitution. Complexity or deviation MUST be justified in the change's pla
 (see the plan template's Constitution Check and Complexity Tracking sections).
 Persistent or unjustified violations block merge until resolved.
 
-**Version**: 2.0.0 | **Ratified**: 2026-07-14 | **Last Amended**: 2026-07-14
+**Runtime development guidance**: This constitution defines *what* must hold.
+`.specify/memory/development-loops.md` defines *where and when* each gate is
+enforced — the loop model (L0 spec, L1 inner, L2 outer, L3 production), the gate
+placement matrix, and the mandatory feedback paths. That document is subordinate
+to this one: where they conflict, this constitution wins and the guidance MUST be
+corrected. Every Quality Gate above MUST have exactly one owning loop recorded
+there; a gate that no loop enforces is aspiration, not governance.
+
+**Version**: 2.1.1 | **Ratified**: 2026-07-14 | **Last Amended**: 2026-07-14
