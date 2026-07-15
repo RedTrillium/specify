@@ -1,0 +1,41 @@
+{
+  "$comment": [
+    "L1 (inner-loop) gate configuration. See .specify/memory/development-loops.md.",
+    "Technology is NOT bound here by default: the constitution keeps the stack out of",
+    "governance, and /speckit-plan is the only stage that chooses it. When a feature's",
+    "plan.md fills in Technical Context, write the concrete commands into l1.* below.",
+    "Use {file} as the placeholder for the changed file path.",
+    "A null command means the gate is UNBOUND and will be skipped with a notice.",
+    "secretScan is stack-agnostic and runs regardless."
+  ],
+  "l1": {
+    "format": null,
+    "typecheck": null,
+    "test": null
+  },
+  "examples": {
+    "$comment": "Illustrative only. Do not enable until plan.md binds the stack.",
+    "node": {
+      "format": "npx prettier --write --ignore-unknown {file}",
+      "typecheck": "npx tsc --noEmit",
+      "test": "npx vitest related --run {file}"
+    },
+    "python": {
+      "format": "ruff format {file}",
+      "typecheck": "mypy {file}",
+      "test": "pytest -q"
+    },
+    "dotnet": {
+      "format": "dotnet format --include {file}",
+      "typecheck": "dotnet build --nologo -v q",
+      "test": "dotnet test --nologo -v q"
+    }
+  },
+  "secretScan": {
+    "enabled": true,
+    "excludePaths": [
+      ".specify/scripts/powershell/run-l1-gates.ps1",
+      ".specify/loops.json"
+    ]
+  }
+}

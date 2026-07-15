@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# L1 (inner-loop) gate: pre-commit.
+# Enforces the gates .specify/memory/development-loops.md assigns to L1 against
+# staged files. Secret detection is stack-agnostic and always runs; format /
+# typecheck / test run only once /speckit-plan binds them in .specify/loops.json.
+#
+# Enable with:  git config core.hooksPath .githooks
+# Bypass (records a waiver decision):  git commit --no-verify
+
+exec powershell -NoProfile -ExecutionPolicy Bypass \
+  -File .specify/scripts/powershell/run-l1-gates.ps1 -Staged
